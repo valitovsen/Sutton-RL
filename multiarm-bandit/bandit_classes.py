@@ -52,14 +52,17 @@ class Agent:
 
     def chooseAction(self):
         if random.uniform(0,1) < self.epsilon:
+        #Choose random action
             action = random.randint(0, len(self.estimates)-1)
         else:
+        #Choose optimal action, break ties randomly
             action = random.choice([i for i,x in enumerate(self.estimates)
                                     if x == max(self.estimates)])
         self.actions[action] += 1
         return action
 
     def updateEstimates(self, action, reward):
+        #Incremental update of estimates
         self.estimates[action] = (self.estimates[action] +
                                         (reward - self.estimates[action]) /
                                             self.actions[action])
