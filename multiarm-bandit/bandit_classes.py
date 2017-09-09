@@ -51,13 +51,7 @@ class Agent:
         self.epsilon = epsilon
 
     def chooseAction(self):
-        if random.uniform(0,1) < self.epsilon:
-        #Choose random action
-            action = random.randint(0, len(self.estimates)-1)
-        else:
-        #Choose optimal action, break ties randomly
-            action = random.choice([i for i,x in enumerate(self.estimates)
-                                    if x == max(self.estimates)])
+        action = epsilonGreedy(self.estimates, self.epsilon)
         self.actions[action] += 1
         return action
 
@@ -66,3 +60,19 @@ class Agent:
         self.estimates[action] = (self.estimates[action] +
                                         (reward - self.estimates[action]) /
                                             self.actions[action])
+
+def epsilonGreedy(estimates, epsilon):
+    '''
+    Implementation of epsilon-greedy policy.
+    estimates: list of action value estimates
+    epsilon: epsilon in [0,1]
+    Returns index of action to take.
+    '''
+    if epsilon > 1 or epsilon < 0:
+        raise ValueError('Invalid epsilon')
+    if random.uniform(0,1) < epsilon:
+        action = random.randint(0, len(estimates)-1)
+    else:
+        action = random.choice([i for i,x in enumerate(estimates)
+                                    if x == max(estimates)])
+    return action

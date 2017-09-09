@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-runs = 2000
+runs = 100
 steps = 1000
 k = 10
 epsilon = [0.1, 0.01, 0]
