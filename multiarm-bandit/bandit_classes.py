@@ -52,7 +52,7 @@ class Agent:
 
     def chooseAction(self):
         action = epsilonGreedySelection(self.estimates, self.epsilon)
-        self.actions[action] += 1
+        self.history[action] += 1
         return action
 
     def updateEstimates(self, action, reward):
@@ -61,7 +61,7 @@ class Agent:
                                         (reward - self.estimates[action]) /
                                             self.history[action])
 
-def epsilonGreedySelecion(estimates, epsilon):
+def epsilonGreedySelection(estimates, epsilon):
     '''
     Implementation of epsilon-greedy policy.
     estimates: list of action value estimates
@@ -72,7 +72,7 @@ def epsilonGreedySelecion(estimates, epsilon):
         raise ValueError('Invalid epsilon')
     if random.uniform(0,1) < epsilon:
         action = random.randint(0, len(estimates)-1)
-    else:
+    else:   #breaks ties randomly
         action = random.choice([i for i,x in enumerate(estimates)
                                     if x == max(estimates)])
     return action
