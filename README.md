@@ -12,7 +12,7 @@ All code is written for Python 3.x, dependencies include NumPy, Matplodlib etc.<
 
 <p>Contents:</p>
 <ul>
-  <li><a href="2. Multirarm Bandit">Stationary Multiarm Bandit</a> for Chapter 2 - works and plots results, 'main' is messy though.</li>
+  <li><a href="multiarm-bandit">Stationary Multiarm Bandit</a> for Chapter 2 - works and plots results, 'main' is messy though.</li>
  </ul>
  
  
