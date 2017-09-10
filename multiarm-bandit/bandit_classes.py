@@ -3,7 +3,7 @@ import numpy as np
 
 
 class Setting:
-    def __init__(self, k, epsilon=0.1):
+    def __init__(self, k=10, epsilon=0.1, state='stat'):
         self.arms = [Arm() for i in range(k)]
         self.agent = Agent(epsilon)
 
@@ -13,7 +13,7 @@ class Setting:
 
     def seedEstimates(self, q=0):
         self.agent.estimates = [q for i in range(len(self.arms))]
-        self.agent.actions = [0 for i in range(len(self.arms))]
+        self.agent.history = [0 for i in range(len(self.arms))]
 
     def reset(self):
         self.seedActionValues()
@@ -47,11 +47,11 @@ class Arm:
 class Agent:
     def __init__(self, epsilon):
         self.estimates = None
-        self.actions = None
+        self.history = None
         self.epsilon = epsilon
 
     def chooseAction(self):
-        action = epsilonGreedy(self.estimates, self.epsilon)
+        action = epsilonGreedySelection(self.estimates, self.epsilon)
         self.actions[action] += 1
         return action
 
@@ -59,9 +59,9 @@ class Agent:
         #Incremental update of estimates
         self.estimates[action] = (self.estimates[action] +
                                         (reward - self.estimates[action]) /
-                                            self.actions[action])
+                                            self.history[action])
 
-def epsilonGreedy(estimates, epsilon):
+def epsilonGreedySelecion(estimates, epsilon):
     '''
     Implementation of epsilon-greedy policy.
     estimates: list of action value estimates
@@ -76,3 +76,13 @@ def epsilonGreedy(estimates, epsilon):
         action = random.choice([i for i,x in enumerate(estimates)
                                     if x == max(estimates)])
     return action
+
+def UCBSelection(estimates, timestep, log, degree=2):
+    pass
+
+
+
+
+
+def incrementAverage(estimates, action, reward, history):
+    pass
